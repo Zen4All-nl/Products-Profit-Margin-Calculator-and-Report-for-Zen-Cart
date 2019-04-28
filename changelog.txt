@@ -1,0 +1,61 @@
+Products Profit/Margin Calculator with Report 
+================
+v1.2 update by stellarweb July 5, 2010 - core files changed to work with zen cart 1.3.9d
+
+REMOVED admin/document_general.php
+REMOVED admin/document_product.php
+REMOVED admin/product_free_shipping.php
+REMOVED admin/product_music.php
+
+The following files were revised:
+admin/includes/modules/document_product/collect_info.php
+admin/includes/modules/document_product/preview_info.php
+
+admin/includes/modules/product_free_shipping/collect_info.php
+admin/includes/modules/product_free_shipping/preview_info.php
+
+admin/includes/modules/product_music/collect_info.php
+admin/includes/modules/product_music/preview_info.php
+admin/includes/modules/product_music/update_product.php
+
+admin/includes/languages/english/categoreis.php
+admin/includes/languages/english/document_product.php
+admin/includes/languages/english/product_free_shipping.php
+admin/includes/languages/english/product_music.php
+
+includes/filenames.php
+
+============================================
+v1.1 update by halbert February 20, 2007
+These files were changed to enable support for other product types:
+
+admin/document_general.php
+admin/document_product.php
+admin/product_free_shipping.php
+admin/product_music.php
+
+admin/includes/modules/document_product/collect_info.php
+admin/includes/modules/document_product/preview_info.php
+
+admin/includes/modules/product_free_shipping/collect_info.php
+admin/includes/modules/product_free_shipping/preview_info.php
+
+admin/includes/modules/product_music/collect_info.php
+admin/includes/modules/product_music/preview_info.php
+admin/includes/modules/product_music/update_product.php
+
+admin/includes/languages/english/categoreis.php
+admin/includes/languages/english/document_product.php
+admin/includes/languages/english/product_free_shipping.php
+admin/includes/languages/english/product_music.php
+
+====================
+v1.0 by getyourgameshere.com
+These are the files that were changed to work with 1.3.5
+
+admin/stats_products_profit.php
+admin/includes/modules/update_product.php
+admin/includes/modules/product/collect_info.php
+admin/includes/modules/product/preview_info.php
+
+includes/filenames.php
