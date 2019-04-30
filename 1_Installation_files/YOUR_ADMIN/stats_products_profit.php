@@ -1,180 +1,81 @@
 <?php
-//
-// +----------------------------------------------------------------------+
-// |zen-cart Open Source E-commerce                                       |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2003 The zen-cart developers                           |
-// |                                                                      |
-// | http://www.zen-cart.com/index.php                                    |
-// |                                                                      |
-// | Portions Copyright (c) 2003 osCommerce                               |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the GPL license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.zen-cart.com/license/2_0.txt.                             |
-// | If you did not receive a copy of the zen-cart license and are unable |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | license@zen-cart.com so we can mail you a copy immediately.          |
-// +----------------------------------------------------------------------+
-//  $Id: stats_products_purchased.php 2497 2005-12-02 01:48:55Z drbyte $
-//
-
-  require('includes/application_top.php');
-  
+/**
+ */
+require('includes/application_top.php');
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" media="print" href="includes/stylesheet_print.css">
-<link rel="stylesheet" type="text/css" href="includes/cssjsmenuhover.css" media="all" id="hoverJS">
-<link rel="stylesheet" type="text/css" href="includes/tabcontent.css">
-<script language="javascript" src="includes/menu.js"></script>
-<script language="javascript" src="includes/general.js"></script>
-<script language="javascript" src="includes/tabcontent.js"></script>
-<script type="text/javascript">
-  <!--
-  function init()
-  {
-    cssjsmenu('navbar');
-    if (document.getElementById)
-    {
-      var kill = document.getElementById('hoverJS');
-      kill.disabled = true;
-    }
-  }
-  // -->
-</script>
-</head>
-<body onload="init()">
-<!-- header //-->
-<div class="header-area">
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-</div>
-<!-- header_eof //-->
+  <head>
+    <meta charset="<?php echo CHARSET; ?>">
+    <title><?php echo TITLE; ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <link rel="stylesheet" href="includes/stylesheet.css">
+    <link rel="stylesheet" media="print" href="includes/stylesheet_print.css">
+    <script src="includes/general.js"></script>
+  </head>
+  <body>
+    <!-- header //-->
+    <div class="header-area">
+        <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    </div>
+    <!-- header_eof //-->
+    <?php
+    $products_query_raw = "SELECT SUM(op.products_quantity) AS products_ordered, op.products_name,
+                                  p.products_price,p.products_cost, op.products_id,
+                                  SUM(p.products_cost * op.products_quantity) AS total_cost,
+                                  (SUM(op.products_price) - SUM(p.products_cost)) AS total_profit
+                           FROM " . TABLE_ORDERS_PRODUCTS . " op
+                           LEFT JOIN " . TABLE_PRODUCTS . " p ON p.products_id = op.products_id
+                           GROUP BY op.products_id, op.products_name
+                           ORDER BY products_ordered DESC, products_name";
 
-<!-- body //-->
+    $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $products_query_raw, $products_query_numrows);
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-</table>		
-
-<?php
-//Since stats_products_margin.php never existed in the original package, I have removed the link to it. Once its back in place, you can take out the comments from these lines AND remove the php tags
-/*<ul id="tablist">
-<li><a href="stats_products_margin.php" class="current" onClick="return expandcontent('sc1', this)">Product Profit Report</a></li>
-</ul>*/
-?>
-
-<DIV id="tabcontentcontainer">
-
-<div id="sc1" class="tabcontent">
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-<!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-          <!--  <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>-->
-          <!--   <td class="pageHeading" align="right"><?php echo zen_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>-->
+    $products = $db->Execute($products_query_raw);
+    ?>
+    <!-- body //-->
+    <div class="container-fluid">
+      <h1><?php echo HEADING_TITLE; ?></h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="dataTableHeadingRow">
+            <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></th>
+            <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_PURCHASED; ?></th>
+            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_COST; ?></th>
+            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_PROFIT; ?>&nbsp;</th>
           </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product) { ?>
+            <tr class="dataTableRow">
+              <td class="dataTableContent text-right"><?php echo $product['products_id']; ?></td>
+              <td class="dataTableContent"><a href="<?php echo zen_href_link(FILENAME_CATEGORY_PRODUCT_LISTING, 'cPath=' . zen_get_product_path($product['products_id']) . '&pID=' . $product['products_id']); ?>"><?php echo $product['products_name']; ?></a></td>
+              <td class="dataTableContent text-right"><?php echo $product['products_ordered']; ?></td>
+              <td class="dataTableContent text-right"><?php echo number_format($product['total_cost'], 2); ?></td>
+              <td class="dataTableContent text-right"><?php echo number_format($product['total_profit'], 2); ?></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+      <div class="row">
+        <table class="table">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-				<td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PURCHASED; ?></td>
-				<td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_COST; ?></td>
-				<td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_PROFIT; ?>&nbsp;</td>
-
-                
-              </tr>
-<?php
-  if (isset($_GET['page']) && ($_GET['page'] > 1)) $rows = $_GET['page'] * MAX_DISPLAY_SEARCH_RESULTS_REPORTS - MAX_DISPLAY_SEARCH_RESULTS_REPORTS;
-// The new query uses real order info from the orders_products table, and is theoretically more accurate.
-// To use this newer query, remove the "1" from the following line ($products_query_raw1 becomes $products_query_raw )
-     $products_query_raw =  "select 
-		SUM(op.products_quantity) as products_ordered, op.products_name, 
-		p.products_price,p.products_cost, op.products_id, 
-		SUM(p.products_cost * op.products_quantity) AS total_cost,
-		(SUM(op.products_price) - SUM(p.products_cost)) AS total_profit
-	 FROM ".TABLE_ORDERS_PRODUCTS." op
-     LEFT JOIN " . TABLE_PRODUCTS . " p
-     ON (p.products_id = op.products_id )
-     GROUP BY p.products_id
-     ORDER BY products_ordered DESC, products_name";
-
-  
-  $products_query_numrows='';
-  $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $products_query_raw, $products_query_numrows);
-
-  $rows = 0;
-  $products = $db->Execute($products_query_raw);
-  
-
-  while (!$products->EOF) {
-    $rows++;
-
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-    $cPath = zen_get_product_path($products->fields['products_id']);
-		
-?>
-
-              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href='<?php echo zen_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products->fields['products_id'] . '&page='); ?>'">
-                <td class="dataTableContent" align="right"><?php echo $products->fields['products_id']; ?>&nbsp;&nbsp;</td>
-                <td class="dataTableContent"><?php echo '<a href="' . zen_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products->fields['products_id'] . '&page=') . '">' . $products->fields['products_name'] . '</a>'; ?></td>
-				<td class="dataTableContent" align="right"><?php echo $products->fields['products_ordered']; ?>&nbsp;</td>
-				<td class="dataTableContent" align="right"><?php echo number_format($products->fields['total_cost'],2); ?>&nbsp;</td>
-				<td class="dataTableContent" align="right"><?php echo number_format($products->fields['total_profit'],2); ?>&nbsp;</td>
-				
-              </tr>
-<?php
-    $products->MoveNext();
-  }
-?>
-
-
-            </table></td>
+            <td><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, (int)$_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+            <td class="text-right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, MAX_DISPLAY_PAGE_LINKS, (int)$_GET['page']); ?>&nbsp;</td>
           </tr>
-		
-          <tr>
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText" valign="top"><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-                <td class="smallText" align="right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
-              </tr>
-            </table>
-			</td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-<!-- body_text_eof //-->
-  </tr>
-</table>
-</div>
+        </table>
+      </div>
+      <!-- body_text_eof //-->
+    </div>
+    <!-- body_eof //-->
 
-</DIV>
-			
-<!-- body_eof //-->
-
-<!-- footer //-->
-<div class="footer-area">
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-</div>
-<!-- footer_eof //-->
-</body>
+    <!-- footer //-->
+    <div class="footer-area">
+      <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+    </div>
+    <!-- footer_eof //-->
+  </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
