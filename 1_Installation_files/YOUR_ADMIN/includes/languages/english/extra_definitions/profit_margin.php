@@ -1,4 +1,5 @@
 <?php
+define('BOX_CONFIGURATION_PROFIT_MARGIN', 'Profit Margin Calculator Settings');
 define('BOX_REPORTS_PRODUCTS_PROFIT', 'Products Profit');
 
 define('TABLE_HEADING_COST','Cost');
