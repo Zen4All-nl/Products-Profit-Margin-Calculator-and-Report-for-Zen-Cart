@@ -1,52 +1,611 @@
-Products Profit/Margin Calculator with Report
-==========
-Update to v1.2 by stellarweb July 5 2010
-===========================================
-Updated core files listed in changelog to work with latest zen cart version 1.3.9d
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Products Profit/Margin Calculator with Report 2.0.0</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="card bg-light">
+        <div class="card-header">
+          <h1 class="card-title">Products Profit/Margin Calculator with Report</h1>
+          <div class="pos_rel">
+            <div id="downloads">
+              <a class="zip_download_link" href="https://github.com/Zen4All-nl/Products-Profit-Margin-Calculator-and-Report-for-Zen-Cart/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Zen4All-nl/Products-Profit-Margin-Calculator-and-Report-for-Zen-Cart/tarball/master">Download this project as a tar.gz file</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <ul class="nav nav-tabs" id="Tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="installation-tab" data-toggle="tab" href="#installation" role="tab" aria-controls="installation" aria-selected="false">Installation Instructions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="setup-tab" data-toggle="tab" href="#setup" role="tab" aria-controls="setup" aria-selected="false">Configuration</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="credits-tab" data-toggle="tab" href="#credits" role="tab" aria-controls="credits" aria-selected="false">Credits & History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="license-tab" data-toggle="tab" href="#license" role="tab" aria-controls="credits" aria-selected="false">License</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="TabContent">
+            <div class="text-right">
+              <a href="https://www.zen-cart.com/showthread.php?45475-Products-Profit-Margin-Calculator-and-Report-for-1-3-5!3" title="Support Thread" target="_blank" class="btn btn-info" role="button">Support Thread</a>
+              <a href="https://github.com/Zen4All-nl/Products-Profit-Margin-Calculator-and-Report-for-Zen-Cart" title="View on GitHub" target="_blank" class="btn btn-info" role="button">View on GitHub <i class="fa fa-github fa-lg"></i></a>
+            </div>
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+              <h2>What does this mod do?</h2>
+              <p>Well, in short, it allows you to add a cost field to your products and allow you to track your profit. Its not a perfect contribution, but its on its way there. A report under Admin->Reports will show you what your profit is.</p>
+            </div>
+            <div class="tab-pane fade" id="installation" role="tabpanel" aria-labelledby="installation-tab">
+              <h2>Installation</h2>
+              <ul class="nav nav-tabs" id="TabInstallation" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="new-install-tab" data-toggle="tab" href="#new-install" role="tab" aria-controls="new-install" aria-selected="true">New install</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="upgrade-tab" data-toggle="tab" href="#upgrade" role="tab" aria-controls="upgrade" aria-selected="false">Upgrade</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="un-install-tab" data-toggle="tab" href="#un-install" role="tab" aria-controls="un-install" aria-selected="false">Un-install</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="file-list-tab" data-toggle="tab" href="#file-list" role="tab" aria-controls="file-list" aria-selected="false">File List</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="TabInstallationContent">
+                <div class="tab-pane fade show active" id="new-install" role="tabpanel" aria-labelledby="new-install-tab">
+                  <h3>New install</h3>
+                  <p><strong>BACKUP FILES AND DATABASE</strong></p>
+                  <p>Copy the files into the correct directories.<br /> There are only files for the admin sideof your store. In the installation folder you will find a folder called "YOUR_ADMIN". Rename this foldr to the actual name of your Zen Cart admin folder.</p>
+                  <p>Next upload all the files. Some files need merging, but all the changes are clearly marked like this <code>&lt;?php /* BOF Profit Margin Module 1 of 5 */ ?&gt;</code>. The easiest way to merge is touse software like "Beyond Compare", or "WinMerge"</p>
+                  <p>There are some database changes these will auto install as soon as you log in to your admin.</p>
+                </div>
+                <div class="tab-pane fade" id="upgrade" role="tabpanel" aria-labelledby="upgrade-tab">
+                  <h3>Upgrade</h3>
+                  <p>When upgrading from a previous version, please use the file list as a guide to see which file have been changed. After aplying the file changes, log in to your Zen Cart admin, to complete the installation. The database changes, if needed, will be executed automatically</p>
+                </div>
+                <div class="tab-pane fade" id="un-install" role="tabpanel" aria-labelledby="un-install-tab">
+                  <h3>Un-install</h3>
+                  <p>Use the file list to remove all the files, and changes made for this mod. Then log in to your Zen Cart Admin, and run the profit_margin_uninstall.sql (found in the uninstall folder) in Admin=>Tools=>Install SQL Patches</p>
+                </div>
+                <div class="tab-pane fade" id="file-list" role="tabpanel" aria-labelledby="file-list-tab">
+                  <h3>File List</h3>
+                  <table class="dc" cellspacing="0" cellpadding="0">
+                    <thead>
+                      <tr class="SectionAll">
+                        <th class="DirItemHeader">Version 1.2.0</th>
+                        <th class="DirItemHeader"></th>
+                        <th class="DirItemHeader">Version 2.0.0</th>
+                        <th class="DirItemHeader">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="SectionBegin">
+                        <td class="DirItemDefault"><i class="fa fa-folder-open DirOrphanOlderExpanded"></i> admin</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><i class="fa fa-folder-open DirNewerOrphanExpanded"></i> YOUR_ADMIN</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">├</span><i class="fa fa-folder-open DirOrphanOlderExpanded"></i> includes</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">├</span><i class="fa fa-folder-open DirNewerOrphanExpanded"></i> includes</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> auto_loaders</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>config.profit_margin.php</td>
+                        <td class="DirItemDefault">New</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> boxes</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││</span></td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>reports_dhtml.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault">Removed: obsolete in ZC 1.5.x</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> extra_datafiles</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>profit_margin_filenames.php</td>
+                        <td class="DirItemDefault">New: replaces includes/filenames.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> functions</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> functions</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││└</span><i class="fa fa-folder-open DirOrphanExpanded"></i> extra_functions</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││&nbsp;&nbsp;└</span>functions_profit_margin.php</td>
+                        <td class="DirItemDefault">New: Replaces admin/includes/functions/functions_prices.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>functions_prices.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault">Removed: Replaced by admin/includes/functions/extra_functions/functions_profit_margin.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> init_includes</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>init_profit_margin.php</td>
+                        <td class="DirItemDefault">New</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> installers</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││└</span><i class="fa fa-folder-open DirOrphanExpanded"></i> profit_margin</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││&nbsp;&nbsp;├</span>1_2_0.php</td>
+                        <td class="DirItemDefault">New</td>
 
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││&nbsp;&nbsp;└</span>2_0_0.php</td>
+                        <td class="DirItemDefault">New</td>
 
-===========================================
-Update to v1.1 by halbert February 20, 2007
-===========================================
-The original v1 of this contribution only adds the price and markup fields to the general product_type.
-
-I added support for the other document_product, product_free_shipping, and product_music product types.
-
-Installation instructions remain the same.
-
-All other work for this contribution was done by others (see original documentation below)
-
-=========================================================================
-This contribution is a combination of the following:
-
-Profit Margin Calculator v1.12 by Farrukh
-Products Profit and Cost Report v1 by Farrukh
-
-Basically, all I did was combine the two contributions together, and updated it to work with 1.3.5. The SQL file included in this package inserts data for both contributions in one run.
-
-===WHAT DOES THIS CONTRIBUTION DO?===
-Well, in short, it allows you to add a cost field to your products and allow you to track your profit. Its not a perfect contribution, but its on its way there. A report under Admin->Reports will show you what your profit is :)
-
-===HOW DO I GET IT TO WORK?===
-BACKUP BACKUP BACKUP!!!!!! BOTH DB AND FILES!!!
-
-Log into your Zencart and go to Tools -> Install SQL Patches. Copy and paste everything that is inside your SQL.sql file bundled with this release and click "Send".
-
-After that is done, upload everything in the directory structure it is in. Please note that this WILL overwrite some of your files. BE SURE TO HAVE A GOOD BACKUP OF YOUR SITE BEFORE DOING THIS!
-
-Once you have uploaded it, you need to set product cost where you define the products price. You will see more boxes that show up. Please note that product price is automatically generated, so you shouldn't put anything in the original Product Price (net/gross) boxes. In fact, if you have anything in there - erase it. Now, put in the cost of the product and the markup percent. Gross margin $ and Gross margin % are automatically calculated for you - just tab through them.
-
-YOU NEED TO TAB THROUGH THESE FIELDS - DO NOT LEAVE THESE 4 FIELDS EMPTY.
-
-Once you tab through those 4 fields, you should see Products Price (Net) updated. Products Price (Gross) may or may not update - don't worry about it, it will be set whenever you save it.
-
-
-===KNOWN ISSUES===
-*Products Price (Gross) does not update when you tab through everything for some reason.
-*Gross Margin $, Gross Margin % are not updated until you tab through them.
-*When an item is deleted, it shows up as cost $0.00 and selling price $0.00
-*If an item's cost is updated, it is reflected for ALL sales. Should only be reflected for sales from now on. Easy way to get around this is to duplicate the product who's cost fell, and deactivate the old one (don't delete)
-
-===Questions, Comments===
-Please feel free to post up at the zen cart boards. http://www.zen-cart.com/forum/showthread.php?t=45475
-download: https://www.zen-cart.com/downloads.php?do=file&id=175
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirOrphanOlderExpanded"></i> languages</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│├</span><i class="fa fa-folder-open DirNewerOrphanExpanded"></i> languages</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││├</span><i class="fa fa-folder-open DirOrphanOlderExpanded"></i> english</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││└</span><i class="fa fa-folder-open DirNewerOrphanExpanded"></i> english</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││││</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirOrphanExpanded"></i> extra_definitions</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">││││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">││&nbsp;&nbsp;│└</span>profit_margin.php</td>
+                        <td class="DirItemDefault">New: Replaces all previous module language files</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│││├</span>categories.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│││├</span>document_product.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│││├</span>product.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│││├</span>product_free_shipping.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│││├</span>product_music.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│││└</span>stats_products_profit.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">││&nbsp;&nbsp;└</span>stats_products_profit.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">││└</span>english.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">││&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│└</span><i class="fa fa-folder-open DirOrphanOlderExpanded"></i> modules</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│└</span><i class="fa fa-folder-open DirNewerOrphanExpanded"></i> modules</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirOlderExpanded"></i> document_product</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirNewerExpanded"></i> document_product</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirOlderExpanded"></i> product</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirNewerExpanded"></i> product</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirOlderExpanded"></i> product_free_shipping</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirNewerExpanded"></i> product_free_shipping</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│└</span>preview_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirOlderExpanded"></i> product_music</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;├</span><i class="fa fa-folder-open DirNewerExpanded"></i> product_music</td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│├</span>collect_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│├</span>preview_info.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│├</span>preview_info.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;│└</span>update_product.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;│└</span>update_product.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│&nbsp;&nbsp;├</span>category_product_listing.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed: Replaced by admin/category_product_listing.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">│&nbsp;&nbsp;├</span>copy_product_confirm.php</td>
+                        <td class="DirItemDefault">New: Replaces admin/includes/modules/copy_to_confirm.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│&nbsp;&nbsp;├</span>copy_to_confirm.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed: Replaced by admin/includes/modules/copy_product_confirm.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">│&nbsp;&nbsp;├</span>prod_cat_header_code.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">│&nbsp;&nbsp;│</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">│&nbsp;&nbsp;└</span>update_product.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">│&nbsp;&nbsp;└</span>update_product.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><span class="text-black">│</span></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemOrphan"><span class="text-black">├</span>category_product_listing.php</td>
+                        <td class="DirItemDefault">New: Replaces admin/category_product_listing.php</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOlder"><span class="text-black">└</span>stats_products_profit.php</td>
+                        <td class="DirItemDefault"><img src="images/ContentDifferent.png" width="28" height="16" alt="<CC>" align="middle"> </td>
+                        <td class="DirItemNewer"><span class="text-black">└</span>stats_products_profit.php</td>
+                        <td class="DirItemDefault">Updated</td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemDefault"><i class="fa fa-folder-open DirOrphanExpanded"></i> includes</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"></td>
+                      </tr>
+                      <tr class="SectionMiddle">
+                        <td class="DirItemOrphan"><span class="text-black">└</span>filenames.php</td>
+                        <td class="DirItemDefault"></td>
+                        <td class="DirItemDefault"><span class="text-black">&nbsp;&nbsp;</span></td>
+                        <td class="DirItemDefault">Removed</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="setup" role="tabpanel" aria-labelledby="setup-tab">
+              <h2>Configuration</h2>
+              <p>Once you have uploaded it, you need to set product cost where you define the products price. You will see more boxes that show up. Please note that product price is automatically generated, so you shouldn't put anything in the original Product Price (net/gross) boxes. Now, put in the cost of the product and the markup percent. Gross margin $ and Gross margin % are automatically calculated for you - just tab through them.</p>
+              <h3>Known issues</h3>
+              <ul>
+                <li>When an item is deleted, it shows up as cost $0.00 and selling price $0.00</li>
+                <li>If an item's cost is updated, it is reflected for ALL sales. Should only be reflected for sales from now on.<strike> Easy way to get around this is to duplicate the product who's cost fell, and deactivate the old one (don't delete)</strike></li>
+              </ul>
+            </div>
+            <div class="tab-pane fade" id="credits" role="tabpanel" aria-labelledby="credits-tab">
+              <h2>Version History</h2>
+              <table>
+                <tr>
+                  <td>Version: </td>
+                  <td>&nbsp;</td>
+                  <td>2.0.0</td>
+                </tr>
+                <tr>
+                  <td>Release Date: </td>
+                  <td>&nbsp;</td>
+                  <td>01-05-2019</td>
+                </tr>
+                <tr>
+                  <td>Zen Cart Versions: </td>
+                  <td>&nbsp;</td>
+                  <td>1.5.6</td>
+                </tr>
+                <tr>
+                  <td>Author: </td>
+                  <td>&nbsp;</td>
+                  <td><a href="https://zen4all.nl" target="_blank">Zen4All</a></td>
+                </tr>
+                <tr>
+                  <td>Changes: </td>
+                  <td>&nbsp;</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Version: </td>
+                  <td>&nbsp;</td>
+                  <td>1.2</td>
+                </tr>
+                <tr>
+                  <td>Release Date: </td>
+                  <td>&nbsp;</td>
+                  <td>19-07-2010</td>
+                </tr>
+                <tr>
+                  <td>Zen Cart Versions: </td>
+                  <td>&nbsp;</td>
+                  <td>1.3.9</td>
+                </tr>
+                <tr>
+                  <td>Author: </td>
+                  <td>&nbsp;</td>
+                  <td>stellarweb</td>
+                </tr>
+                <tr>
+                  <td>Changes: </td>
+                  <td>&nbsp;</td>
+                  <td>
+                    <ul>
+                      <li>Updated core files listed in changelog to work with latest zen cart version 1.3.9d</li>
+                      <li>REMOVED admin/document_general.php
+                      <li>REMOVED admin/document_product.php</li>
+                      <li>REMOVED admin/product_free_shipping.php</li>
+                      <li>REMOVED admin/product_music.php</li>
+                      <li>The following files were revised:
+                        <ul>
+                          <li>admin/includes/modules/document_product/collect_info.php</li>
+                          <li>admin/includes/modules/document_product/preview_info.php</li>
+                          <li>admin/includes/modules/product_free_shipping/collect_info.php</li>
+                          <li>admin/includes/modules/product_free_shipping/preview_info.php</li>
+                          <li>admin/includes/modules/product_music/collect_info.php</li>
+                          <li>admin/includes/modules/product_music/preview_info.php</li>
+                          <li>admin/includes/modules/product_music/update_product.php</li>
+                          <li>admin/includes/languages/english/categories.php</li>
+                          <li>admin/includes/languages/english/document_product.php</li>
+                          <li>admin/includes/languages/english/product_free_shipping.php</li>
+                          <li>admin/includes/languages/english/product_music.php</li>
+                          <li>includes/filenames.php</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <hr>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Version: </td>
+                  <td>&nbsp;</td>
+                  <td>1.1</td>
+                </tr>
+                <tr>
+                  <td>Release Date: </td>
+                  <td>&nbsp;</td>
+                  <td>21-02-2007</td>
+                </tr>
+                <tr>
+                  <td>Zen Cart Versions: </td>
+                  <td>&nbsp;</td>
+                  <td>1.3.7</td>
+                </tr>
+                <tr>
+                  <td>Author: </td>
+                  <td>&nbsp;</td>
+                  <td>halbert</td>
+                </tr>
+                <tr>
+                  <td>Changes: </td>
+                  <td>&nbsp;</td>
+                  <td>
+                    <ul><li>The original v1 of this contribution only adds the price and markup fields to the general product_type.<br>I added support for the other document_product, product_free_shipping, and product_music product types.<br>Installation instructions remain the same.<br>All other work for this contribution was done by others</li>
+                      <li>These files were changed to enable support for other product types:
+                        <ul>
+                          <li>admin/document_general.php</li>
+                          <li>admin/document_product.php</li>
+                          <li>admin/product_free_shipping.php</li>
+                          <li>admin/product_music.php</li>
+                          <li>admin/includes/modules/document_product/collect_info.php</li>
+                          <li>admin/includes/modules/document_product/preview_info.php</li>
+                          <li>admin/includes/modules/product_free_shipping/collect_info.php</li>
+                          <li>admin/includes/modules/product_free_shipping/preview_info.php</li>
+                          <li>admin/includes/modules/product_music/collect_info.php</li>
+                          <li>admin/includes/modules/product_music/preview_info.php</li>
+                          <li>admin/includes/modules/product_music/update_product.php</li>
+                          <li>admin/includes/languages/english/categoreis.php</li>
+                          <li>admin/includes/languages/english/document_product.php</li>
+                          <li>admin/includes/languages/english/product_free_shipping.php</li>
+                          <li>admin/includes/languages/english/product_music.php</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <hr>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Version: </td>
+                  <td>&nbsp;</td>
+                  <td>1.0</td>
+                </tr>
+                <tr>
+                  <td>Release Date: </td>
+                  <td>&nbsp;</td>
+                  <td>06-09-2006</td>
+                </tr>
+                <tr>
+                  <td>Zen Cart Versions: </td>
+                  <td>&nbsp;</td>
+                  <td>1.3.5</td>
+                </tr>
+                <tr>
+                  <td>Author: </td>
+                  <td>&nbsp;</td>
+                  <td>samad64</td>
+                </tr>
+                <tr>
+                  <td>Changes: </td>
+                  <td>&nbsp;</td>
+                  <td>
+                    <ul>
+                      <li>This contribution is a combination of the following:<br>Profit Margin Calculator v1.12 by Farrukh<br>Products Profit and Cost Report v1 by Farrukh<br>Basically, all I did was combine the two contributions together, and updated it to work with 1.3.5. The SQL file included in this package inserts data for both contributions in one run.</li>
+                      <li>These are the files that were changed to work with 1.3.5
+                        <ul>
+                          <li>admin/stats_products_profit.php</li>
+                          <li>admin/includes/modules/update_product.php</li>
+                          <li>admin/includes/modules/product/collect_info.php</li>
+                          <li>admin/includes/modules/product/preview_info.php</li>
+                          <li>includes/filenames.php</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
+              <ul>
+                <li>License: GPL 2.0 as per included <a href="../LICENSE" target="_blank">LICENSE</a></li>
+                <li>Support Thread: <a href="https://www.zen-cart.com/showthread.php?45475-Products-Profit-Margin-Calculator-and-Report-for-1-3-5!" target="_blank">https://www.zen-cart.com/showthread.php?45475-Products-Profit-Margin-Calculator-and-Report-for-1-3-5!</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-sm-center">Copyright 2019 <a href="https://zen4all.nl" target="_blank">Zen4All</a></div>
+      </div>
+    </div>
+    <script src="jscript/jquery-3.3.1.min.js"></script>
+    <script src="jscript/popper.min.js"></script>
+    <script src="jscript/bootstrap.min.js"></script>
+  </body>
+</html>
