@@ -789,7 +789,7 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                   or p.products_model like '%" . zen_db_input($_GET['search']) . "%')" .
                   $order_by);
                  */
-                <?php /* BOF Profit Margin Module 3 of 5 */ ?>
+                /* BOF Profit Margin Module 3 of 5 */
                 $products_query_raw = ("SELECT p.products_type, p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price,
                                                p.products_cost, p.products_markup,
                                                p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id,
@@ -808,9 +808,9 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                                           OR p.products_id = '" . zen_db_input($_GET['search']) . "'
                                           OR p.products_model like '%" . zen_db_input($_GET['search']) . "%')
                                         " . $order_by);
-                <?php /* EOF Profit Margin Module 3 of 5 */ ?>
+                /* EOF Profit Margin Module 3 of 5 */
               } else {
-                <?php /* BOF Profit Margin Module 4 of 5 */ ?>
+                /* BOF Profit Margin Module 4 of 5 */
                 $products_query_raw = ("SELECT p.products_type, p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price,
                                                p.products_cost, p.products_markup,
                                                p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model,
@@ -825,7 +825,7 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                                         AND p.products_id = p2c.products_id
                                         AND p2c.categories_id = " . (int)$current_category_id .
                                         $order_by);
-                <?php /* EOF Profit Margin Module 4 of 5 */ ?>
+                /* EOF Profit Margin Module 4 of 5 */
               }
 // Split Page
 // reset page when page is unknown
