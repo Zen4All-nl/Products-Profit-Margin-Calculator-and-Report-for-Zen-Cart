@@ -52,10 +52,13 @@ $parameters['products_margin_gross_percent'] = '';
 $pInfo = new objectInfo($parameters);
 
 if (isset($_GET['pID']) && empty($_POST)) {
-/* BOF Profit Margin Module 2 of 4 */
+/* BOF Profit Margin Module 1 of 4 */
+$extra_fields = ', p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent';
+/* EOF Profit Margin Module 1 of 4 */
+
   $product = $db->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                   p.products_id, p.products_quantity, p.products_model,
-                                  p.products_image, p.products_price, p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent, p.products_virtual, p.products_weight,
+                                  p.products_image, p.products_price, p.products_virtual, p.products_weight,
                                   p.products_date_added, p.products_last_modified,
                                   date_format(p.products_date_available, '%Y-%m-%d') as
                                   products_date_available, p.products_status, p.products_tax_class_id,
@@ -66,12 +69,14 @@ if (isset($_GET['pID']) && empty($_POST)) {
                                   p.products_sort_order,
                                   p.products_discount_type, p.products_discount_type_from,
                                   p.products_price_sorter, p.master_categories_id
+                                  /* BOF Profit Margin Module 2 of 4 */
+                                  " . $extra_fields . "
+                                  /* EOF Profit Margin Module 2 of 4 */
                            FROM " . TABLE_PRODUCTS . " p,
                                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            WHERE p.products_id = " . (int)$_GET['pID'] . "
                            AND p.products_id = pd.products_id
                            AND pd.language_id = " . (int)$_SESSION['languages_id']);
-/* EOF Profit Margin Module 2 of 4 */
 
   $pInfo->updateObjectInfo($product->fields);
 } elseif (zen_not_null($_POST)) {
@@ -174,24 +179,17 @@ for ($i = 0, $n = sizeof($tax_class_array); $i < $n; $i++) {
 </script>
 <?php /* BOF Profit Margin Module 3 of 4 */ ?>
 <script>
-  var costValue;
-  var markupValue;
-  var markup;
-  var netValue;
-  var marginGrossDollar;
-  var marginGrossDollarValue;
-  var marginGrossPercent;
 
 function updateCost() {
-  costValue = $('input[name="products_cost"]').val();
+  const costValue = $('input[name="products_cost"]').val();
 
   $('input[name="products_cost"]').val(doRound(costValue,4));
 }
 
 function updateMarkup() {
-  costValue = Number($('input[name="products_cost"]').val());
-  markupValue = Number($('input[name="products_markup"]').val());
-  markup = costValue + ((costValue * markupValue)/100);
+  const costValue = Number($('input[name="products_cost"]').val());
+  const markupValue = Number($('input[name="products_markup"]').val());
+  const markup = costValue + ((costValue * markupValue)/100);
 
   $('input[name="products_price"]').val(doRound(markup,4));
   updatemarginGrossDollar();
@@ -200,23 +198,22 @@ function updateMarkup() {
 }
 
 function updatemarginGrossDollar() {
-  costValue = Number($('input[name="products_cost"]').val());
-  netValue = Number($('input[name="products_price"]').val());
-  marginGrossDollar = netValue - costValue;
+  const costValue = Number($('input[name="products_cost"]').val());
+  const netValue = Number($('input[name="products_price"]').val());
+  const marginGrossDollar = netValue - costValue;
 
   $('input[name="products_margin_gross_dollar"]').val(doRound(marginGrossDollar,4));
 }
 
 function updatemarginGrossPercent() {
-  marginGrossDollarValue = Number($('input[name="products_margin_gross_dollar"]').val());
-  netValue = Number($('input[name="products_price"]').val());
-  marginGrossPercent = (marginGrossDollarValue / netValue) * 100;
+  const marginGrossDollarValue = Number($('input[name="products_margin_gross_dollar"]').val());
+  const netValue = Number($('input[name="products_price"]').val());
+  const marginGrossPercent = (marginGrossDollarValue / netValue) * 100;
 
   $('input[name="products_margin_gross_percent"]').val(doRound(marginGrossPercent,4));
 }
 </script>
-<?php 
-/* EOF Profit Margin Module 3 of 4 */ ?>
+<?php /* EOF Profit Margin Module 3 of 4 */ ?>
 <div class="container-fluid">
     <?php
     echo zen_draw_form('new_product', FILENAME_PRODUCT, 'cPath=' . $current_category_id . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview' . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ( (isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '') . ( (isset($_POST['search']) && !empty($_POST['search']) && empty($_GET['search'])) ? '&search=' . $_POST['search'] : ''), 'post', 'enctype="multipart/form-data" class="form-horizontal"');
@@ -368,7 +365,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
     <div class="form-group">
-        <?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARKUP, 'products_markup', 'class="col-sm-3 control-label"'); ?>
+      <?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARKUP, 'products_markup', 'class="col-sm-3 control-label"'); ?>
       <div class="col-sm-9 col-md-6">
         <div class="input-group">
           <?php echo zen_draw_input_field('products_markup', $pInfo->products_markup, 'onkeyup="updateMarkup();" class="form-control"'); ?>

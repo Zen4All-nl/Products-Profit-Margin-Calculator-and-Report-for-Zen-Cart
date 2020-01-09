@@ -47,10 +47,10 @@ if (isset($_POST['edit_x']) || isset($_POST['edit_y'])) {
   );
 
 /* BOF Profit Margin Module 1 of 1 */
-  $sql_data_array['products_cost'] = zen_db_prepare_input($_POST['products_cost']);
-  $sql_data_array['products_markup'] = zen_db_prepare_input($_POST['products_markup']);
-  $sql_data_array['products_margin_gross_dollar'] = zen_db_prepare_input($_POST['products_margin_gross_dollar']);
-  $sql_data_array['products_margin_gross_percent'] = zen_db_prepare_input($_POST['products_margin_gross_percent']);
+  $sql_data_array['products_cost'] = convertToFloat($_POST['products_cost']);
+  $sql_data_array['products_markup'] = convertToFloat($_POST['products_markup']);
+  $sql_data_array['products_margin_gross_dollar'] = convertToFloat($_POST['products_margin_gross_dollar']);
+  $sql_data_array['products_margin_gross_percent'] = convertToFloat($_POST['products_margin_gross_percent']);
 /* EOF Profit Margin Module 1 of 1 */
 
   $db_filename = zen_limit_image_filename($_POST['products_image'], TABLE_PRODUCTS, 'products_image');

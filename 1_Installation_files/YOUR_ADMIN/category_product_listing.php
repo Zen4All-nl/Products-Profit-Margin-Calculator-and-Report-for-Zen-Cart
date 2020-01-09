@@ -581,9 +581,9 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                   <th class="text-right"><?php echo TABLE_HEADING_ID; ?></th>
                   <th><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></th>
                   <th class="hidden-md hidden-sm hidden-xs"><?php echo TABLE_HEADING_MODEL; ?></th>
-                  <?php /* BOF Profit Margin Module 1 of 5 */ ?>
+                  <?php /* BOF Profit Margin Module 1 of 6 */ ?>
                   <th class="hidden-md hidden-sm hidden-xs"><?php echo TABLE_HEADING_COST; ?></th>
-                  <?php /* EOF Profit Margin Module 1 of 5 */ ?>
+                  <?php /* EOF Profit Margin Module 1 of 6 */ ?>
                   <th class="text-right hidden-md hidden-sm hidden-xs"><?php echo TABLE_HEADING_PRICE; ?></th>
                   <th class="text-right hidden-md hidden-sm hidden-xs">&nbsp;</th>
                   <th class="text-right hidden-md hidden-sm hidden-xs"><?php echo TABLE_HEADING_QUANTITY; ?></th>
@@ -654,9 +654,9 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                   <td class="text-right"><?php echo $category['categories_id']; ?></td>
                   <td><?php echo zen_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER); ?>&nbsp;<strong><?php echo $category['categories_name']; ?></strong></td>
                   <td class="text-center hidden-md hidden-sm hidden-xs">&nbsp;</td>
-                  <?php /* BOF Profit Margin Module 2 of 5 */ ?>
+                  <?php /* BOF Profit Margin Module 2 of 6 */ ?>
                   <td class="hidden-md hidden-sm hidden-xs">&nbsp;</td>
-                  <?php /* EOF Profit Margin Module 2 of 5 */ ?>
+                  <?php /* EOF Profit Margin Module 2 of 6 */ ?>
                   <td class="text-right hidden-md hidden-sm hidden-xs"><?php echo zen_get_products_sale_discount('', $category['categories_id'], true); ?></td>
                   <td class="text-center hidden-md hidden-sm hidden-xs">&nbsp;</td>
                   <td class="text-right hidden-md hidden-sm hidden-xs">
@@ -789,13 +789,18 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                   or p.products_model like '%" . zen_db_input($_GET['search']) . "%')" .
                   $order_by);
                  */
-                /* BOF Profit Margin Module 3 of 5 */
+                /* BOF Profit Margin Module 3 of 6 */
+                $extra_fields = '';
+                $extra_fields .= ', p.products_cost, p.products_markup';
+                /* EOF Profit Margin Module 3 of 6 */
                 $products_query_raw = ("SELECT p.products_type, p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price,
-                                               p.products_cost, p.products_markup,
                                                p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id,
                                                p.products_model, p.products_quantity_order_min, p.products_quantity_order_units, p.products_priced_by_attribute,
                                                p.product_is_free, p.product_is_call, p.products_quantity_mixed, p.product_is_always_free_shipping,
                                                p.products_quantity_order_max, p.products_sort_order, p.master_categories_id
+                /* BOF Profit Margin Module 4 of 6 */
+                                               " . $extra_fields . "
+                /* EOF Profit Margin Module 4 of 6 */
                                         FROM " . TABLE_PRODUCTS . " p,
                                              " . TABLE_PRODUCTS_DESCRIPTION . " pd,
                                              " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
@@ -808,15 +813,15 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                                           OR p.products_id = '" . zen_db_input($_GET['search']) . "'
                                           OR p.products_model like '%" . zen_db_input($_GET['search']) . "%')
                                         " . $order_by);
-                /* EOF Profit Margin Module 3 of 5 */
               } else {
-                /* BOF Profit Margin Module 4 of 5 */
                 $products_query_raw = ("SELECT p.products_type, p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price,
-                                               p.products_cost, p.products_markup,
                                                p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model,
                                                p.products_quantity_order_min, p.products_quantity_order_units, p.products_priced_by_attribute, p.product_is_free,
                                                p.product_is_call, p.products_quantity_mixed, p.product_is_always_free_shipping, p.products_quantity_order_max,
                                                p.products_sort_order
+                /* BOF Profit Margin Module 5 of 6 */
+                                               " . $extra_fields . "
+                /* EOF Profit Margin Module 5 of 6 */
                                         FROM " . TABLE_PRODUCTS . " p,
                                              " . TABLE_PRODUCTS_DESCRIPTION . " pd,
                                              " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
@@ -825,7 +830,6 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                                         AND p.products_id = p2c.products_id
                                         AND p2c.categories_id = " . (int)$current_category_id .
                                         $order_by);
-                /* EOF Profit Margin Module 4 of 5 */
               }
 // Split Page
 // reset page when page is unknown
@@ -872,9 +876,9 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
                   <td class="text-right"><?php echo $product['products_id']; ?></td>
                   <td><a href="<?php echo zen_catalog_href_link($type_handler . '_info', 'cPath=' . $cPath . '&products_id=' . $product['products_id'] . '&language=' . $_SESSION['languages_code'] . '&product_type=' . $product['products_type']); ?>" target="_blank"><?php echo zen_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW); ?></a>&nbsp;<?php echo $product['products_name']; ?></td>
                   <td class="hidden-md hidden-sm hidden-xs"><?php echo $product['products_model']; ?></td>
-                  <?php /* BOF Profit Margin Module 5 of 5 */ ?>
+                  <?php /* BOF Profit Margin Module 6 of 6 */ ?>
                   <td class="hidden-md hidden-sm hidden-xs text-center"><?php echo zen_get_products_display_cost($product['products_id']); ?></td>
-                  <?php /* EOF Profit Margin Module 5 of 5 */ ?>
+                  <?php /* EOF Profit Margin Module 6 of 6 */ ?>
                   <td colspan="2" class="text-right hidden-md hidden-sm hidden-xs"><?php echo zen_get_products_display_price($product['products_id']); ?></td>
                   <td class="text-right hidden-md hidden-sm hidden-xs"><?php echo $product['products_quantity']; ?></td>
                   <td class="text-right hidden-md hidden-sm hidden-xs">
