@@ -1,7 +1,7 @@
 <?php
 /**
  */
-require('includes/application_top.php');
+require 'includes/application_top.php';
 ?>
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
@@ -17,7 +17,7 @@ require('includes/application_top.php');
   <body>
     <!-- header //-->
     <div class="header-area">
-        <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+      <?php require DIR_WS_INCLUDES . 'header.php'; ?>
     </div>
     <!-- header_eof //-->
     <?php
@@ -73,9 +73,9 @@ require('includes/application_top.php');
 
     <!-- footer //-->
     <div class="footer-area">
-      <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+    <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
     </div>
     <!-- footer_eof //-->
   </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>
