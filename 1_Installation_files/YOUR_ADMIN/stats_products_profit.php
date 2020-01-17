@@ -36,46 +36,49 @@ require 'includes/application_top.php';
     ?>
     <!-- body //-->
     <div class="container-fluid">
-      <h1><?php echo HEADING_TITLE; ?></h1>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr class="dataTableHeadingRow">
-            <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></th>
-            <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
-            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_PURCHASED; ?></th>
-            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_COST; ?></th>
-            <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_PROFIT; ?>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($products as $product) { ?>
-            <tr class="dataTableRow">
-              <td class="dataTableContent text-right"><?php echo $product['products_id']; ?></td>
-              <td class="dataTableContent"><a href="<?php echo zen_href_link(FILENAME_CATEGORY_PRODUCT_LISTING, 'cPath=' . zen_get_product_path($product['products_id']) . '&pID=' . $product['products_id']); ?>"><?php echo $product['products_name']; ?></a></td>
-              <td class="dataTableContent text-right"><?php echo $product['products_ordered']; ?></td>
-              <td class="dataTableContent text-right"><?php echo number_format($product['total_cost'], 2); ?></td>
-              <td class="dataTableContent text-right"><?php echo number_format($product['total_profit'], 2); ?></td>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title"><?php echo HEADING_TITLE; ?></h1>
+        </div>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr class="dataTableHeadingRow">
+              <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_NUMBER; ?></th>
+              <th class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+              <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_PURCHASED; ?></th>
+              <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_COST; ?></th>
+              <th class="dataTableHeadingContent text-right"><?php echo TABLE_HEADING_TOTAL_PROFIT; ?>&nbsp;</th>
             </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <div class="row">
-        <table class="table">
+          </thead>
+          <tbody>
+            <?php foreach ($products as $product) { ?>
+              <tr class="dataTableRow">
+                <td class="dataTableContent text-right"><?php echo $product['products_id']; ?></td>
+                <td class="dataTableContent"><a href="<?php echo zen_href_link(FILENAME_CATEGORY_PRODUCT_LISTING, 'cPath=' . zen_get_product_path($product['products_id']) . '&pID=' . $product['products_id']); ?>"><?php echo $product['products_name']; ?></a></td>
+                <td class="dataTableContent text-right"><?php echo $product['products_ordered']; ?></td>
+                <td class="dataTableContent text-right"><?php echo number_format($product['total_cost'], 2); ?></td>
+                <td class="dataTableContent text-right"><?php echo number_format($product['total_profit'], 2); ?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+        <table class="table panel-footer">
           <tr>
             <td><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, (int)$_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-            <td class="text-right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, MAX_DISPLAY_PAGE_LINKS, (int)$_GET['page']); ?>&nbsp;</td>
+            <td class="text-right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS_REPORTS, MAX_DISPLAY_PAGE_LINKS, (int)$_GET['page']); ?></td>
           </tr>
         </table>
       </div>
-      <!-- body_text_eof //-->
     </div>
-    <!-- body_eof //-->
+    <!-- body_text_eof //-->
+  </div>
+  <!-- body_eof //-->
 
-    <!-- footer //-->
-    <div class="footer-area">
+  <!-- footer //-->
+  <div class="footer-area">
     <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
-    </div>
-    <!-- footer_eof //-->
-  </body>
+  </div>
+  <!-- footer_eof //-->
+</body>
 </html>
 <?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>
