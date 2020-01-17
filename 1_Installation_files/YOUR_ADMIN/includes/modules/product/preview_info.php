@@ -1,10 +1,10 @@
 <?php
 /**
  * @package admin
- * @copyright Copyright 2003-2018 Zen Cart Development Team
+ * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: mc12345678 Tue Sep 18 16:05:09 2018 -0400 Modified in v1.5.6 $
+ * @version $Id: DrByte 2019 May 25 Modified in v1.5.6b $
  */
 if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
@@ -21,15 +21,18 @@ if (zen_not_null($_POST)) {
   $products_url = $_POST['products_url'];
 } else {
 /* BOF Profit Margin Module 1 of 1 */
+$extra_fields = ', p.products_qty_envelope, p.products_cost, p.products_markup';
+
   $product = $db->Execute("SELECT p.products_id, pd.language_id, pd.products_name,
                                   pd.products_description, pd.products_url, p.products_quantity,
-                                  p.products_model, p.products_image, p.products_price, p.products_cost, p.products_markup, p.products_virtual,
+                                  p.products_model, p.products_image, p.products_price, p.products_virtual,
                                   p.products_weight, p.products_date_added, p.products_last_modified,
                                   p.products_date_available, p.products_status, p.manufacturers_id,
                                   p.products_quantity_order_min, p.products_quantity_order_units, p.products_priced_by_attribute,
                                   p.product_is_free, p.product_is_call, p.products_quantity_mixed,
                                   p.product_is_always_free_shipping, p.products_qty_box_status, p.products_quantity_order_max,
                                   p.products_sort_order
+                                  " . $extra_fields . "
                            FROM " . TABLE_PRODUCTS . " p,
                                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            WHERE p.products_id = pd.products_id
@@ -160,7 +163,9 @@ $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
         }
         echo zen_draw_hidden_field('products_image', stripslashes($products_image_name));
         echo ( (isset($_GET['search']) && !empty($_GET['search'])) ? zen_draw_hidden_field('search', $_GET['search']) : '') . ( (isset($_POST['search']) && !empty($_POST['search']) && empty($_GET['search'])) ? zen_draw_hidden_field('search', $_POST['search']) : '');
-        echo zen_image_submit('button_back.gif', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
+      ?>
+        <button type="submit" name="edit" value="edit" class="btn btn-default"><?php echo IMAGE_BACK; ?></button>
+      <?php
         if (isset($_GET['pID'])) {
           ?>
         <button type="submit" class="btn btn-primary"><?php echo IMAGE_UPDATE; ?></button>

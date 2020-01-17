@@ -4,7 +4,7 @@
  * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: DrByte 2019 Jan 04 Modified in v1.5.6a $
+ * @version $Id: Zen4All 2019 Jan 20 Modified in v1.5.6b $
  */
 if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
@@ -42,20 +42,23 @@ $parameters = array(
   'master_categories_id' => ''
 );
 
-/* BOF Profit Margin Module 1 of 4 */
+/* BOF Profit Margin Module 1 of 5 */
 $parameters['products_cost'] = '';
 $parameters['products_markup'] = '';
 $parameters['products_margin_gross_dollar'] = '';
 $parameters['products_margin_gross_percent'] = '';
-/* EOF Profit Margin Module 1 of 4 */
+/* EOF Profit Margin Module 1 of 5 */
 
 $pInfo = new objectInfo($parameters);
 
 if (isset($_GET['pID']) && empty($_POST)) {
-/* BOF Profit Margin Module 2 of 4 */
+/* BOF Profit Margin Module 2 of 5 */
+$extra_fields = ', p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent';
+/* EOF Profit Margin Module 2 of 5 */
+
   $product = $db->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                   p.products_id, p.products_quantity, p.products_model,
-                                  p.products_image, p.products_price, p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent, p.products_virtual, p.products_weight,
+                                  p.products_image, p.products_price, p.products_virtual, p.products_weight,
                                   p.products_date_added, p.products_last_modified,
                                   date_format(p.products_date_available, '%Y-%m-%d') as
                                   products_date_available, p.products_status, p.products_tax_class_id,
@@ -66,12 +69,14 @@ if (isset($_GET['pID']) && empty($_POST)) {
                                   p.products_sort_order,
                                   p.products_discount_type, p.products_discount_type_from,
                                   p.products_price_sorter, p.master_categories_id
+                                  /* BOF Profit Margin Module 3 of 5 */
+                                  " . $extra_fields . "
+                                  /* EOF Profit Margin Module 3 of 5 */
                            FROM " . TABLE_PRODUCTS . " p,
                                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            WHERE p.products_id = " . (int)$_GET['pID'] . "
                            AND p.products_id = pd.products_id
                            AND pd.language_id = " . (int)$_SESSION['languages_id']);
-/* EOF Profit Margin Module 2 of 4 */
 
   $pInfo->updateObjectInfo($product->fields);
 } elseif (zen_not_null($_POST)) {
@@ -172,26 +177,19 @@ for ($i = 0, $n = sizeof($tax_class_array); $i < $n; $i++) {
       document.forms["new_product"].products_price.value = doRound(netValue, 4);
   }
 </script>
-<?php /* BOF Profit Margin Module 3 of 4 */ ?>
+<?php /* BOF Profit Margin Module 4 of 5 */ ?>
 <script>
-  var costValue;
-  var markupValue;
-  var markup;
-  var netValue;
-  var marginGrossDollar;
-  var marginGrossDollarValue;
-  var marginGrossPercent;
 
 function updateCost() {
-  costValue = $('input[name="products_cost"]').val();
+  const costValue = $('input[name="products_cost"]').val();
 
   $('input[name="products_cost"]').val(doRound(costValue,4));
 }
 
 function updateMarkup() {
-  costValue = Number($('input[name="products_cost"]').val());
-  markupValue = Number($('input[name="products_markup"]').val());
-  markup = costValue + ((costValue * markupValue)/100);
+  const costValue = Number($('input[name="products_cost"]').val());
+  const markupValue = Number($('input[name="products_markup"]').val());
+  const markup = costValue + ((costValue * markupValue)/100);
 
   $('input[name="products_price"]').val(doRound(markup,4));
   updatemarginGrossDollar();
@@ -200,23 +198,22 @@ function updateMarkup() {
 }
 
 function updatemarginGrossDollar() {
-  costValue = Number($('input[name="products_cost"]').val());
-  netValue = Number($('input[name="products_price"]').val());
-  marginGrossDollar = netValue - costValue;
+  const costValue = Number($('input[name="products_cost"]').val());
+  const netValue = Number($('input[name="products_price"]').val());
+  const marginGrossDollar = netValue - costValue;
 
   $('input[name="products_margin_gross_dollar"]').val(doRound(marginGrossDollar,4));
 }
 
 function updatemarginGrossPercent() {
-  marginGrossDollarValue = Number($('input[name="products_margin_gross_dollar"]').val());
-  netValue = Number($('input[name="products_price"]').val());
-  marginGrossPercent = (marginGrossDollarValue / netValue) * 100;
+  const marginGrossDollarValue = Number($('input[name="products_margin_gross_dollar"]').val());
+  const netValue = Number($('input[name="products_price"]').val());
+  const marginGrossPercent = (marginGrossDollarValue / netValue) * 100;
 
   $('input[name="products_margin_gross_percent"]').val(doRound(marginGrossPercent,4));
 }
 </script>
-<?php 
-/* EOF Profit Margin Module 3 of 4 */ ?>
+<?php /* EOF Profit Margin Module 4 of 5 */ ?>
 <div class="container-fluid">
     <?php
     echo zen_draw_form('new_product', FILENAME_PRODUCT, 'cPath=' . $current_category_id . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview' . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ( (isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '') . ( (isset($_POST['search']) && !empty($_POST['search']) && empty($_GET['search'])) ? '&search=' . $_POST['search'] : ''), 'post', 'enctype="multipart/form-data" class="form-horizontal"');
@@ -358,7 +355,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
   </div>
-<?php /* BOF Profit Margin Module 4 of 4 */ ?>
+<?php /* BOF Profit Margin Module 5 of 5 */ ?>
   <div class="well" style="color: #31708f;background-color: #f7f6ef;border-color: #bce8f1;;padding: 10px 10px 0 0;">
     <div class="col-sm-12 text"><?php echo TEXT_PRODUCTS_PRICE_MARGIN_CALCULATOR; ?></div>
     <div class="form-group">
@@ -368,7 +365,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
     <div class="form-group">
-        <?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARKUP, 'products_markup', 'class="col-sm-3 control-label"'); ?>
+      <?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARKUP, 'products_markup', 'class="col-sm-3 control-label"'); ?>
       <div class="col-sm-9 col-md-6">
         <div class="input-group">
           <?php echo zen_draw_input_field('products_markup', $pInfo->products_markup, 'onkeyup="updateMarkup();" class="form-control"'); ?>
@@ -392,7 +389,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
   </div>
-<?php /* EOF Profit Margin Module 4 of 4 */ ?>
+<?php /* EOF Profit Margin Module 5 of 5 */ ?>
   <script>
     updateGross();
   </script>
