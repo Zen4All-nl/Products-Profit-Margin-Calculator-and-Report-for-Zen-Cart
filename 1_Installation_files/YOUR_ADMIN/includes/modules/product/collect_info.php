@@ -42,19 +42,19 @@ $parameters = array(
   'master_categories_id' => ''
 );
 
-/* BOF Profit Margin Module 1 of 4 */
+/* BOF Profit Margin Module 1 of 5 */
 $parameters['products_cost'] = '';
 $parameters['products_markup'] = '';
 $parameters['products_margin_gross_dollar'] = '';
 $parameters['products_margin_gross_percent'] = '';
-/* EOF Profit Margin Module 1 of 4 */
+/* EOF Profit Margin Module 1 of 5 */
 
 $pInfo = new objectInfo($parameters);
 
 if (isset($_GET['pID']) && empty($_POST)) {
-/* BOF Profit Margin Module 1 of 4 */
+/* BOF Profit Margin Module 2 of 5 */
 $extra_fields = ', p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent';
-/* EOF Profit Margin Module 1 of 4 */
+/* EOF Profit Margin Module 2 of 5 */
 
   $product = $db->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                   p.products_id, p.products_quantity, p.products_model,
@@ -69,9 +69,9 @@ $extra_fields = ', p.products_cost, p.products_markup, p.products_margin_gross_d
                                   p.products_sort_order,
                                   p.products_discount_type, p.products_discount_type_from,
                                   p.products_price_sorter, p.master_categories_id
-                                  /* BOF Profit Margin Module 2 of 4 */
+                                  /* BOF Profit Margin Module 3 of 5 */
                                   " . $extra_fields . "
-                                  /* EOF Profit Margin Module 2 of 4 */
+                                  /* EOF Profit Margin Module 3 of 5 */
                            FROM " . TABLE_PRODUCTS . " p,
                                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            WHERE p.products_id = " . (int)$_GET['pID'] . "
@@ -177,7 +177,7 @@ for ($i = 0, $n = sizeof($tax_class_array); $i < $n; $i++) {
       document.forms["new_product"].products_price.value = doRound(netValue, 4);
   }
 </script>
-<?php /* BOF Profit Margin Module 3 of 4 */ ?>
+<?php /* BOF Profit Margin Module 4 of 5 */ ?>
 <script>
 
 function updateCost() {
@@ -213,7 +213,7 @@ function updatemarginGrossPercent() {
   $('input[name="products_margin_gross_percent"]').val(doRound(marginGrossPercent,4));
 }
 </script>
-<?php /* EOF Profit Margin Module 3 of 4 */ ?>
+<?php /* EOF Profit Margin Module 4 of 5 */ ?>
 <div class="container-fluid">
     <?php
     echo zen_draw_form('new_product', FILENAME_PRODUCT, 'cPath=' . $current_category_id . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview' . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ( (isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '') . ( (isset($_POST['search']) && !empty($_POST['search']) && empty($_GET['search'])) ? '&search=' . $_POST['search'] : ''), 'post', 'enctype="multipart/form-data" class="form-horizontal"');
@@ -355,7 +355,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
   </div>
-<?php /* BOF Profit Margin Module 4 of 4 */ ?>
+<?php /* BOF Profit Margin Module 5 of 5 */ ?>
   <div class="well" style="color: #31708f;background-color: #f7f6ef;border-color: #bce8f1;;padding: 10px 10px 0 0;">
     <div class="col-sm-12 text"><?php echo TEXT_PRODUCTS_PRICE_MARGIN_CALCULATOR; ?></div>
     <div class="form-group">
@@ -389,7 +389,7 @@ function updatemarginGrossPercent() {
       </div>
     </div>
   </div>
-<?php /* EOF Profit Margin Module 4 of 4 */ ?>
+<?php /* EOF Profit Margin Module 5 of 5 */ ?>
   <script>
     updateGross();
   </script>
