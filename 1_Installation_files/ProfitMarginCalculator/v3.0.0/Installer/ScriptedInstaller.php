@@ -6,15 +6,12 @@ class ScriptedInstaller extends ScriptedInstallBase {
 
   protected function executeInstall()
   {
-    global $db;
+    global $db, $sniffer;
     $db->Execute("DELETE FROM " . TABLE_CONFIGURATION_GROUP . " WHERE configuration_group_title = 'Profit Margin Calculator'");
     $db->Execute("DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'PROFIT_MARGIN_VERSION'");
 
     zen_deregister_admin_pages(['configProfitMargin', 'reportsProfitMargin']);
-    zen_register_admin_page(
-            'configProfitMargin', 'BOX_CONFIGURATION_PROFIT_MARGIN', 'FILENAME_CONFIGURATION', 'gID=50', 'configuration', 'Y', 50);
-    zen_register_admin_page(
-            'reportsProfitMargin', 'BOX_REPORTS_PRODUCTS_PROFIT', 'FILENAME_STATS_PRODUCTS_PROFIT', '', 'reports', 'Y', 50);
+    zen_register_admin_page('reportsProfitMargin', 'BOX_REPORTS_PRODUCTS_PROFIT', 'FILENAME_STATS_PRODUCTS_PROFIT', '', 'reports', 'Y', 50);
 
     if (!$sniffer->field_exists(TABLE_PRODUCTS, 'products_cost')) {
       $db->Execute("ALTER TABLE " . TABLE_PRODUCTS . " ADD products_cost DECIMAL( 15, 4 ) DEFAULT '0.0000' NOT NULL AFTER products_price;");
