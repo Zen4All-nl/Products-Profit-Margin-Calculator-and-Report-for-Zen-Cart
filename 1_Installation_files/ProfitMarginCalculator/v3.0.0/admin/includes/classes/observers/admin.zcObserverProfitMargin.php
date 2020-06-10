@@ -9,7 +9,7 @@ class profitMarginAdminObserver extends base {
   function __construct()
   {
     global $db;
-    $this->attach($this, array('NOTIFY_MODULES_UPDATE_PRODUCT_END', 'NOTIFY_MODULES_COPY_PRODUCT_CONFIRM_DUPLICATE_FIELDS'));
+    $this->attach($this, array('NOTIFY_MODULES_UPDATE_PRODUCT_END'));
   }
 
   function update(&$class, $eventID, $p1, &$p2, &$p3, &$p4)

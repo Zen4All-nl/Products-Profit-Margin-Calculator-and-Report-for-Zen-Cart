@@ -6,11 +6,10 @@
  */
 
 if (isset($_GET['pID']) && empty($_POST)) {
-  $product = $db->Execute("SELECT p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent
+  $product = $db->Execute("SELECT p.products_price, p.products_cost, p.products_markup, p.products_margin_gross_dollar, p.products_margin_gross_percent
                            FROM " . TABLE_PRODUCTS . " p
-                           WHERE p.products_id = " . (int)$p1->products_id);
+                           WHERE p.products_id = " . (int)$_GET['pID']);
 
-  $pInfo->updateObjectInfo($product->fields);
 }
 ?>
 <script>
@@ -53,14 +52,14 @@ if (isset($_GET['pID']) && empty($_POST)) {
   inputBlock += '<div class="form-group">\n';
   inputBlock += '<?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_COST, 'products_cost', 'class="col-sm-3 control-label"'); ?>\n';
   inputBlock += '<div class="col-sm-9 col-md-6">\n';
-  inputBlock += '<?php echo zen_draw_input_field('products_cost', $pInfo->products_cost, 'onkeyup="updateMarkup();" class="form-control"'); ?>\n';
+  inputBlock += '<?php echo zen_draw_input_field('products_cost', $product->fields['products_cost'], 'onkeyup="updateMarkup();" class="form-control"'); ?>\n';
   inputBlock += '</div>\n';
   inputBlock += '</div>\n';
   inputBlock += '<div class="form-group">\n';
   inputBlock += '<?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARKUP, 'products_markup', 'class="col-sm-3 control-label"'); ?>\n';
   inputBlock += '<div class="col-sm-9 col-md-6">\n';
   inputBlock += '<div class="input-group">\n';
-  inputBlock += '<?php echo zen_draw_input_field('products_markup', $pInfo->products_markup, 'onkeyup="updateMarkup();" class="form-control"'); ?>\n';
+  inputBlock += '<?php echo zen_draw_input_field('products_markup', $product->fields['products_markup'], 'onkeyup="updateMarkup();" class="form-control"'); ?>\n';
   inputBlock += '<span class="input-group-addon">%</span>\n';
   inputBlock += '</div>\n';
   inputBlock += '</div>\n';
@@ -68,14 +67,14 @@ if (isset($_GET['pID']) && empty($_POST)) {
   inputBlock += '<div class="form-group">\n';
   inputBlock += '<?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARGIN_GROSS, 'products_margin_gross_dollar', 'class="col-sm-3 control-label"'); ?>\n';
   inputBlock += '<div class="col-sm-9 col-md-6">\n';
-  inputBlock += '<?php echo zen_draw_input_field('products_margin_gross_dollar', $pInfo->products_margin_gross_dollar, 'onkeyup="updatemarginGrossDollar()" class="form-control" readonly'); ?>\n';
+  inputBlock += '<?php echo zen_draw_input_field('products_margin_gross_dollar', $product->fields['products_margin_gross_dollar'], 'onkeyup="updatemarginGrossDollar()" class="form-control" readonly'); ?>\n';
   inputBlock += '</div>\n';
   inputBlock += '</div>\n';
   inputBlock += '<div class="form-group">\n';
   inputBlock += '<?php echo zen_draw_label(TEXT_PRODUCTS_PRICE_MARGIN_GROSS_PERCENT, 'products_margin_gross_percent', 'class="col-sm-3 control-label"'); ?>\n';
   inputBlock += '<div class="col-sm-9 col-md-6">\n';
   inputBlock += '<div class="input-group">\n';
-  inputBlock += '<?php echo zen_draw_input_field('products_margin_gross_percent', $pInfo->products_margin_gross_percent, 'onkeyup="updatemarginGrossPercent()" class="form-control" readonly'); ?>\n';
+  inputBlock += '<?php echo zen_draw_input_field('products_margin_gross_percent', $product->fields['products_margin_gross_percent'], 'onkeyup="updatemarginGrossPercent()" class="form-control" readonly'); ?>\n';
   inputBlock += '<span class="input-group-addon">%</span>\n';
   inputBlock += '</div>\n';
   inputBlock += '</div>\n';

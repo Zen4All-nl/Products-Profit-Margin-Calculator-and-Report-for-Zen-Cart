@@ -30,12 +30,6 @@ class ScriptedInstaller extends ScriptedInstallBase {
   protected function executeUninstall()
   {
     zen_deregister_admin_pages(['configProfitMargin', 'reportsProfitMargin']);
-
-    $deleteMap = "'DISPLAY_LOGS_MAX_DISPLAY', 'DISPLAY_LOGS_MAX_FILE_SIZE', 'DISPLAY_LOGS_INCLUDED_FILES', 'DISPLAY_LOGS_EXCLUDED_FILES'";
-
-    $sql = "DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key IN (" . $deleteMap . ")";
-
-    $this->executeInstallerSql($sql);
   }
 
 }
