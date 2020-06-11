@@ -6,13 +6,9 @@ require 'includes/application_top.php';
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
   <head>
-    <meta charset="<?php echo CHARSET; ?>">
-    <title><?php echo TITLE; ?></title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
-    <link rel="stylesheet" href="includes/stylesheet.css">
-    <link rel="stylesheet" media="print" href="includes/stylesheet_print.css">
-    <script src="includes/general.js"></script>
+    <?php require DIR_WS_INCLUDES . 'admin_html_head.php'; ?>
+
+    <link rel="stylesheet" media="print" href="includes/css/stylesheet_print.css">
   </head>
   <body>
     <!-- header //-->
@@ -69,16 +65,15 @@ require 'includes/application_top.php';
           </tr>
         </table>
       </div>
+      <!-- body_text_eof //-->
     </div>
-    <!-- body_text_eof //-->
-  </div>
-  <!-- body_eof //-->
+    <!-- body_eof //-->
 
-  <!-- footer //-->
-  <div class="footer-area">
-    <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
-  </div>
-  <!-- footer_eof //-->
-</body>
+    <!-- footer //-->
+    <div class="footer-area">
+      <?php require DIR_WS_INCLUDES . 'footer.php'; ?>
+    </div>
+    <!-- footer_eof //-->
+  </body>
 </html>
 <?php require DIR_WS_INCLUDES . 'application_bottom.php'; ?>
