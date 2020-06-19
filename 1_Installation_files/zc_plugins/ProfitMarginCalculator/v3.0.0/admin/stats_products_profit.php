@@ -18,7 +18,7 @@ require 'includes/application_top.php';
     <!-- header_eof //-->
     <?php
     $products_query_raw = "SELECT SUM(op.products_quantity) AS products_ordered, op.products_name,
-                                  p.products_price,p.products_cost, op.products_id,
+                                  p.products_price, p.products_cost, op.products_id,
                                   SUM(p.products_cost * op.products_quantity) AS total_cost,
                                   (SUM(op.products_price) - SUM(p.products_cost)) AS total_profit
                            FROM " . TABLE_ORDERS_PRODUCTS . " op
