@@ -1,13 +1,13 @@
 <?php
-define('BOX_CONFIGURATION_PROFIT_MARGIN', 'Profit Margin Calculator Settings');
-define('BOX_REPORTS_PRODUCTS_PROFIT', 'Products Profit');
+define('BOX_CONFIGURATION_PROFIT_MARGIN', 'Winst Marge Calculator Instellingen');
+define('BOX_REPORTS_PRODUCTS_PROFIT', 'Producten Winst');
 
-define('TABLE_HEADING_COST','Cost');
-define('TABLE_HEADING_NET_PROFIT','Margin %');
+define('TABLE_HEADING_COST','Kosten');
+define('TABLE_HEADING_NET_PROFIT','Marge %');
 
-define('TEXT_PRODUCTS_PRICE_MARGIN_CALCULATOR', '<b>Profit Margin Calculator</b>');
-define('TEXT_PRODUCTS_PRICE_COST', 'Products Cost:');
-define('TEXT_PRODUCTS_PRICE_MARKUP', 'Markup Percent :');
-define('TEXT_PRODUCTS_PRICE_GROSS', 'Products Price (Gross):');
-define('TEXT_PRODUCTS_PRICE_MARGIN_GROSS', 'Gross Margin $:');
-define('TEXT_PRODUCTS_PRICE_MARGIN_GROSS_PERCENT', 'Gross Margin %:');
+define('TEXT_PRODUCTS_PRICE_MARGIN_CALCULATOR', '<b>Winst Marge Calculator</b>');
+define('TEXT_PRODUCTS_PRICE_COST', 'Product Inkoop:');
+define('TEXT_PRODUCTS_PRICE_MARKUP', 'Markup Percentage :');
+define('TEXT_PRODUCTS_PRICE_GROSS', 'Productprijs (Bruto):');
+define('TEXT_PRODUCTS_PRICE_MARGIN_GROSS', 'Bruto Marge $:');
+define('TEXT_PRODUCTS_PRICE_MARGIN_GROSS_PERCENT', 'Bruto Marge %:');

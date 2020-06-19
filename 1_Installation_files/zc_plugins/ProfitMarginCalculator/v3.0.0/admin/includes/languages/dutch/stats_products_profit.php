@@ -3,10 +3,10 @@
  *
  */
 
-define('HEADING_TITLE', 'Product Profit Report');
+define('HEADING_TITLE', 'Product winstrapport');
 
 define('TABLE_HEADING_NUMBER', 'ID#');
-define('TABLE_HEADING_PRODUCTS', 'Products');
-define('TABLE_HEADING_PURCHASED', 'Purchased');
-define('TABLE_HEADING_TOTAL_COST', 'Total Cost ($)');
-define('TABLE_HEADING_TOTAL_PROFIT', 'Total Profit ($)');
+define('TABLE_HEADING_PRODUCTS', 'Producten');
+define('TABLE_HEADING_PURCHASED', 'Verkocht');
+define('TABLE_HEADING_TOTAL_COST', 'Totaal kosten ($)');
+define('TABLE_HEADING_TOTAL_PROFIT', 'Totaal winst ($)');
